@@ -39,4 +39,21 @@ public class Position {
     private boolean yOutOfBounds(Position position){
         return position.yCoordinate > yCoordinate || position.yCoordinate < 0;
     }
+
+
+    public void increaseX(){
+        this.xCoordinate++;
+    }
+
+    public void increaseY(){
+        this.yCoordinate++;
+    }
+
+    public void decreaseX(){
+        this.xCoordinate--;
+    }
+
+    public void decreaseY(){
+        this.yCoordinate--;
+    }
 }

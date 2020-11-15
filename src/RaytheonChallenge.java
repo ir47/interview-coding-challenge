@@ -4,14 +4,14 @@ import java.io.InputStreamReader;
 
 public class RaytheonChallenge {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InvalidCommandException {
         System.out.println("Raytheon Challenge");
         RaytheonChallenge raytheonChallenge = new RaytheonChallenge();
         raytheonChallenge.setup();
 
     }
 
-    public void setup() throws IOException {
+    public void setup() throws IOException, InvalidCommandException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String[] input = reader.readLine().split(" ");
@@ -31,6 +31,14 @@ public class RaytheonChallenge {
         char direction = Character.toUpperCase(input[2].charAt(0));
 
         Robot robot = new Robot(new Position(x,y),direction);
+        robot.displayPosition();
+
+        String commands = reader.readLine().strip().toUpperCase();
+
+        for (int i = 0; i < commands.length(); i++) {
+            robot.command(commands.charAt(i));
+        }
+
         robot.displayPosition();
     }
 }
