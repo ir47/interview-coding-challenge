@@ -3,13 +3,16 @@ public class Robot {
 
     private Position currentPosition;
     private RobotDirection facingDirection;
+    private final Plateau plateau;
 
-    public Robot(Position currentPosition, char facingDirection) {
+    public Robot(Position currentPosition, char facingDirection, Plateau plateau) throws InvalidFacingDirection {
         this.currentPosition = currentPosition;
+        this.plateau = plateau;
         setDirection(facingDirection);
+
     }
 
-    public void command(char command) throws InvalidCommandException {
+    public void command(char command) throws InvalidCommandException, OutOfPlateauException, InvalidFacingDirection {
         switch (command) {
             case 'L' -> turnLeft();
             case 'R' -> turnRight();
@@ -18,17 +21,35 @@ public class Robot {
         }
     }
 
-    public void move(){
-        switch (facingDirection){
+    public void move() throws OutOfPlateauException {
+        switch (facingDirection) {
             case NORTH -> this.currentPosition.increaseY();
             case EAST -> this.currentPosition.increaseX();
             case SOUTH -> this.currentPosition.decreaseY();
             case WEST -> this.currentPosition.decreaseX();
         }
+        checkPosition();
     }
 
-    public void turnRight(){
-        switch (facingDirection){
+    private void checkPosition() throws OutOfPlateauException {
+        switch (facingDirection) {
+            case NORTH -> {
+                if (currentPosition.yOutOfBounds(plateau.getTopRight())) throw new OutOfPlateauException();
+            }
+            case EAST -> {
+                if (currentPosition.xOutOfBounds(plateau.getBottomRight())) throw new OutOfPlateauException();
+            }
+            case SOUTH -> {
+                if (currentPosition.getYCoordinate() < 0) throw new OutOfPlateauException();
+            }
+            case WEST -> {
+                if (currentPosition.getXCoordinate() < 0) throw new OutOfPlateauException();
+            }
+        }
+    }
+
+    public void turnRight() throws InvalidFacingDirection {
+        switch (facingDirection) {
             case NORTH -> setDirection('E');
             case EAST -> setDirection('S');
             case SOUTH -> setDirection('W');
@@ -36,8 +57,8 @@ public class Robot {
         }
     }
 
-    public void turnLeft(){
-        switch (facingDirection){
+    public void turnLeft() throws InvalidFacingDirection {
+        switch (facingDirection) {
             case NORTH -> setDirection('W');
             case EAST -> setDirection('N');
             case SOUTH -> setDirection('E');
@@ -61,17 +82,17 @@ public class Robot {
         this.facingDirection = facingDirection;
     }
 
-    public void displayPosition(){
-        System.out.println(this.currentPosition.toString() + " " +facingDirection);
+    public void displayPosition() {
+        System.out.println(this.currentPosition.toString() + " " + facingDirection);
     }
 
-    public void setDirection(char input) {
-         this.facingDirection = switch (input) {
+    public void setDirection(char input) throws InvalidFacingDirection {
+        this.facingDirection = switch (input) {
             case 'N' -> RobotDirection.NORTH;
             case 'E' -> RobotDirection.EAST;
             case 'S' -> RobotDirection.SOUTH;
             case 'W' -> RobotDirection.WEST;
-            default -> null;
+            default -> throw new InvalidFacingDirection();
         };
     }
 }

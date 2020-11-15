@@ -32,12 +32,12 @@ public class Position {
                 yCoordinate == position.yCoordinate;
     }
 
-    private boolean xOutOfBounds(Position position){
-        return position.xCoordinate > xCoordinate || position.xCoordinate < 0;
+    public boolean xOutOfBounds(Position position){
+        return xCoordinate > position.xCoordinate;
     }
 
-    private boolean yOutOfBounds(Position position){
-        return position.yCoordinate > yCoordinate || position.yCoordinate < 0;
+    public boolean yOutOfBounds(Position position){
+        return yCoordinate > position.yCoordinate;
     }
 
 
