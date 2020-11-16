@@ -1,6 +1,6 @@
 /**
- * This exception should be used to indicate that a product is not available.
- *
+ * Custom exception which is thrown when an invalid robot command is entered.
  */
+
 public class InvalidCommandException extends Exception {
 }

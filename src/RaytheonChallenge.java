@@ -19,7 +19,7 @@ public class RaytheonChallenge {
         int x = Integer.parseInt(input[0]);
         int y = Integer.parseInt(input[1]);
 
-        Position topRight = new Position(x,y);
+        Position topRight = new Position(x, y);
 
         Plateau plateau = new Plateau(topRight);
 
@@ -30,7 +30,7 @@ public class RaytheonChallenge {
 
         char direction = Character.toUpperCase(input[2].charAt(0));
 
-        Robot robot = new Robot(new Position(x,y),direction,plateau);
+        Robot robot = new Robot(new Position(x, y), direction, plateau);
         robot.displayPosition();
 
         String commands = reader.readLine().strip().toUpperCase();
