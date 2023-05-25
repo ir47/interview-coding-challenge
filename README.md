@@ -1,5 +1,5 @@
 # RaytheonChallenge
-Raytheon Coding Challenge
+Interview Coding Challenge completed for Raytheon Technologies.
 
 Compile: javac *.java
 
